@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Røst Coffee House – Menu & Order</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Bagel+Fat+One&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --paper:#e8e0d4; --paper-2:#efe9df; --ink:#1a1411; --brick:#8e2118; --brick-2:#a3301c;
+  --brown:#6b4a3a; --green:#1f5a1a; --line:rgba(26,20,17,.28); --card:#f3eee6; --onbrick:#fff7ee;
+  --display:"Bagel Fat One","Arial Rounded MT Bold","Trebuchet MS",sans-serif;
+  --body:"Archivo","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#1b1512; --paper-2:#241c18; --ink:#f1e9dd; --brick:#e2604f; --brick-2:#ea7565;
+    --brown:#c9a28c; --green:#7fc27a; --line:rgba(241,233,221,.28); --card:#2a211c; --onbrick:#1b1512;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1b1512; --paper-2:#241c18; --ink:#f1e9dd; --brick:#e2604f; --brick-2:#ea7565;
+  --brown:#c9a28c; --green:#7fc27a; --line:rgba(241,233,221,.28); --card:#2a211c; --onbrick:#1b1512;
+}
+html{height:100%;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--brick);outline-offset:2px}
+
+/* wordmark */
+.wordmark{display:flex;align-items:center;justify-content:center;gap:.08em;font-family:var(--body);font-weight:700;letter-spacing:.22em;font-size:clamp(2.4rem,9vw,4.6rem);line-height:1;margin:0}
+.wordmark svg{width:.86em;height:.86em;margin:0 .06em;flex:none}
+.sub{margin:.6rem 0 0;text-align:center;color:var(--brick);font-weight:700;letter-spacing:.14em;font-size:clamp(.95rem,3vw,1.35rem)}
+
+header.top{padding:2rem 1rem 1rem}
+.hint{max-width:34rem;margin:1rem auto 0;text-align:center;color:var(--brown);font-size:.95rem}
+
+/* category nav */
+nav.cats{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:2px solid var(--ink);display:flex;gap:.4rem;overflow-x:auto;padding:.6rem 1rem;scrollbar-width:none}
+nav.cats::-webkit-scrollbar{display:none}
+nav.cats a{flex:none;text-decoration:none;color:var(--ink);font-weight:700;padding:.45rem .9rem;border:2px solid var(--ink);border-radius:999px;font-size:.95rem}
+nav.cats a:hover{background:var(--ink);color:var(--paper)}
+
+main{max-width:68rem;margin:0 auto;padding:0 1rem 7rem}
+.group{padding-top:2.2rem}
+.group>h2{font-family:var(--display);font-weight:400;font-size:clamp(2rem,6vw,3rem);margin:0 0 1rem;color:var(--brick);line-height:1}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1.6rem 2.6rem}
+.sec h3{font-family:var(--display);font-weight:400;font-size:1.7rem;margin:0 0 .5rem;color:var(--brick);line-height:1.05}
+.sec.green h3{color:var(--green)} .sec.brown h3{color:var(--brown)}
+.sec ul{list-style:none;margin:0;padding:0}
+.item{display:flex;align-items:center;gap:.6rem;padding:.5rem 0;border-bottom:1px dotted var(--line)}
+.item .nm{flex:1;min-width:0;font-weight:600}
+.item .pr{font-weight:700;font-variant-numeric:tabular-nums;min-width:2.6rem;text-align:right}
+.sec.green .nm,.sec.green .pr{color:var(--green)} .sec.brown .nm,.sec.brown .pr{color:var(--brown)}
+.add{flex:none;width:2.4rem;height:2.4rem;border-radius:50%;border:2px solid var(--ink);background:transparent;font-size:1.3rem;line-height:1;font-weight:700;display:grid;place-items:center}
+.add:hover{background:var(--ink);color:var(--paper)}
+.stepper{display:none;align-items:center;gap:.2rem;flex:none}
+.item.has .add{display:none} .item.has .stepper{display:flex}
+.stepper button{width:2.1rem;height:2.1rem;border-radius:50%;border:2px solid var(--ink);background:transparent;font-weight:700;font-size:1.1rem;line-height:1}
+.stepper button:hover{background:var(--ink);color:var(--paper)}
+.stepper span{min-width:1.6rem;text-align:center;font-weight:700}
+.flavors{padding:.5rem 0 .2rem;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;font-size:.9rem;color:var(--brick);font-weight:600}
+.flavors button{border:2px solid var(--brick);background:transparent;color:var(--brick);border-radius:999px;padding:.2rem .7rem;font-weight:700;font-size:.85rem}
+.flavors button[aria-pressed="true"]{background:var(--brick);color:var(--onbrick)}
+
+/* socials */
+footer{border-top:2px solid var(--ink);padding:2rem 1rem calc(6rem + env(safe-area-inset-bottom,0px));text-align:center}
+footer h2{font-family:var(--display);font-weight:400;font-size:1.8rem;margin:0 0 1rem;color:var(--brick)}
+.social{display:flex;flex-wrap:wrap;justify-content:center;gap:.7rem}
+.social a{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--ink);font-weight:700;border:2px solid var(--ink);border-radius:999px;padding:.6rem 1.1rem}
+.social a:hover{background:var(--ink);color:var(--paper)}
+.social svg{width:1.2rem;height:1.2rem;fill:currentColor}
+
+/* cart bar */
+.cartbar{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--paper);display:none;align-items:center;justify-content:space-between;gap:1rem}
+.cartbar.show{display:flex}
+.cartbar b{font-size:1.05rem}
+.cartbar button{background:var(--brick);color:var(--onbrick);border:0;border-radius:999px;padding:.7rem 1.4rem;font-weight:700}
+
+/* order drawer */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:40;display:none}
+.scrim.show{display:block}
+.drawer{position:fixed;z-index:50;right:0;top:0;bottom:0;width:min(100%,28rem);background:var(--paper-2);border-left:2px solid var(--ink);transform:translateX(100%);transition:transform .25s ease;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
+.drawer.show{transform:none}
+.drawer header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;border-bottom:2px solid var(--ink)}
+.drawer h2{font-family:var(--display);font-weight:400;font-size:1.8rem;margin:0;color:var(--brick)}
+.drawer .x{border:2px solid var(--ink);background:transparent;border-radius:50%;width:2.3rem;height:2.3rem;font-size:1.2rem}
+.drawer .body{flex:1;overflow-y:auto;padding:1rem 1.2rem}
+.lines{list-style:none;margin:0 0 1rem;padding:0}
+.lines li{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;border-bottom:1px dotted var(--line)}
+.total{display:flex;justify-content:space-between;font-weight:700;font-size:1.2rem;margin:.6rem 0 1.2rem}
+label{display:block;font-weight:700;margin:.8rem 0 .3rem}
+input[type=text],textarea{width:100%;font:inherit;padding:.65rem .8rem;border:2px solid var(--ink);border-radius:.6rem;background:var(--card);color:var(--ink)}
+textarea{resize:vertical;min-height:4rem}
+.seg{display:flex;gap:.4rem;flex-wrap:wrap}
+.seg button{flex:1;border:2px solid var(--ink);background:transparent;border-radius:.6rem;padding:.55rem .6rem;font-weight:700}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.drawer footer{border-top:2px solid var(--ink);padding:1rem 1.2rem calc(1rem + env(safe-area-inset-bottom,0px));text-align:left}
+.send{width:100%;border:0;border-radius:.8rem;padding:.95rem 1rem;font-weight:700;font-size:1.05rem}
+.send.fb{background:var(--brick);color:var(--onbrick)}
+.send.mail{margin-top:.5rem;background:transparent;border:2px solid var(--ink);color:var(--ink)}
+.note{font-size:.88rem;color:var(--brown);margin:.6rem 0 0}
+.empty{color:var(--brown);margin:1rem 0}
+.toast{position:fixed;left:50%;bottom:calc(5rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:80;background:var(--ink);color:var(--paper);padding:.7rem 1.1rem;border-radius:.7rem;font-weight:600;max-width:90%;text-align:center;display:none}
+.toast.show{display:block}
+
+/* start pop-up */
+.intro{position:fixed;inset:0;z-index:100;background:var(--brick);color:var(--onbrick);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;padding:2rem;text-align:center;transition:opacity .35s ease,visibility .35s}
+.intro.gone{opacity:0;visibility:hidden}
+.intro svg.o{width:min(52vw,13rem);height:auto}
+.intro .ring{fill:none;stroke:currentColor;stroke-width:9;stroke-linecap:round;stroke-dasharray:240;stroke-dashoffset:240;animation:draw .9s ease-out .15s forwards}
+.intro .slash{stroke:currentColor;stroke-width:9;stroke-linecap:round;stroke-dasharray:80;stroke-dashoffset:80;animation:draw .5s ease-out .95s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.intro h1{margin:0;font-weight:700;letter-spacing:.2em;font-size:clamp(1.8rem,7vw,3rem);line-height:1}
+.intro p{margin:0;font-weight:600;letter-spacing:.12em}
+.intro button{margin-top:.6rem;background:var(--onbrick);color:var(--brick);border:0;border-radius:999px;padding:.9rem 2.2rem;font-weight:700;font-size:1.1rem}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .intro .ring,.intro .slash{animation:none;stroke-dashoffset:0}
+  .drawer,.intro{transition:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Start pop-up built around the Ø letter -->
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+  <svg class="o" viewBox="0 0 120 120" aria-hidden="true">
+    <circle class="ring" cx="60" cy="60" r="38" transform="rotate(-90 60 60)"/>
+    <line class="slash" x1="30" y1="92" x2="90" y2="28"/>
+  </svg>
+  <h1 id="introTitle">RØST</h1>
+  <p>COFFEE HOUSE</p>
+  <button id="enter" type="button">View menu &amp; order</button>
+</div>
+
+<header class="top">
+  <h1 class="wordmark" aria-label="Røst">R<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="38" fill="none" stroke="var(--brick)" stroke-width="16"/><line x1="26" y1="96" x2="94" y2="24" stroke="var(--brick)" stroke-width="16" stroke-linecap="round"/></svg>ST</h1>
+  <p class="sub">COFFEE HOUSE</p>
+  <p class="hint">Tap + to add items. Your order is sent to our Facebook page by Messenger.</p>
+</header>
+
+<nav class="cats" aria-label="Menu categories">
+  <a href="#coffee">Coffee</a>
+  <a href="#tea">Matcha &amp; Hojicha</a>
+  <a href="#noncoffee">Non-coffee</a>
+  <a href="#food">Food</a>
+  <a href="#sweets">Sweets</a>
+</nav>
+
+<main id="menu"></main>
+
+<footer>
+  <h2>Find us online</h2>
+  <div class="social">
+    <a href="https://www.facebook.com/rostkohi" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8.2h2.8l.5-3.3h-3.3V8.4c0-.9.4-1.7 1.8-1.7h1.6V3.8S15.600 3.500 14.300 3.500c-2.700 0-4.300 1.600-4.300 4.400v2.600H7.200v3.300H10V22h3.500z"/></svg>Facebook</a>
+    <a href="https://www.instagram.com/roast.nv" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.500A4.500 4.500 0 1 1 7.500 12 4.500 4.500 0 0 1 12 7.500zm0 2A2.500 2.500 0 1 0 14.500 12 2.500 2.500 0 0 0 12 9.500zM17.300 5.800a1.100 1.100 0 1 1-1.100 1.100 1.100 1.100 0 0 1 1.100-1.100z"/></svg>Instagram</a>
+    <a href="mailto:rostkohi.co@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1.500 2L12 12.600 19.500 7h-15zM20 8.900l-8 6-8-6V17h16V8.900z"/></svg>rostkohi.co@gmail.com</a>
+  </div>
+</footer>
+
+<div class="cartbar" id="cartbar">
+  <span><b id="cbCount">0 items</b> &middot; <b id="cbTotal">₱0</b></span>
+  <button type="button" id="openCart">View order</button>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Your order" aria-hidden="true">
+  <header><h2>Your order</h2><button class="x" id="closeCart" type="button" aria-label="Close order">✕</button></header>
+  <div class="body">
+    <p class="empty" id="emptyMsg">Nothing here yet. Add something from the menu.</p>
+    <ul class="lines" id="lines"></ul>
+    <div class="total"><span>Total</span><span id="grand">₱0</span></div>
+
+    <label for="cname">Your name</label>
+    <input type="text" id="cname" autocomplete="name">
+
+    <label id="modeLbl">How will you get it?</label>
+    <div class="seg" role="group" aria-labelledby="modeLbl">
+      <button type="button" data-mode="Dine-in" aria-pressed="true">Dine-in</button>
+      <button type="button" data-mode="Pickup" aria-pressed="false">Pickup</button>
+      <button type="button" data-mode="Delivery" aria-pressed="false">Delivery</button>
+    </div>
+
+    <div id="deliv" hidden>
+      <label for="caddr">Delivery address</label>
+      <textarea id="caddr" autocomplete="street-address"></textarea>
+      <label for="cphone">Contact number</label>
+      <input type="text" id="cphone" inputmode="tel" autocomplete="tel">
+      <p class="note">The shop will confirm the delivery fee in Messenger.</p>
+    </div>
+
+    <label for="cnotes">Notes (sugar level, allergies, pickup time)</label>
+    <textarea id="cnotes"></textarea>
+  </div>
+  <footer>
+    <button class="send fb" type="button" id="sendFb">Send order on Facebook</button>
+    <button class="send mail" type="button" id="sendMail">Send by email instead</button>
+    <p class="note">The button opens Messenger with your order already typed in. Just press Send.</p>
+  </footer>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var FB_ORDER_URL = "https://m.me/61594481610445";
+  var EMAIL = "rostkohi.co@gmail.com";
+
+  var GROUPS = [
+    {id:"coffee", title:"Coffee", cols:[
+      {name:"Classic Coffee", items:[["Espresso",115],["Americano",120],["Piccolo",135],["Cappuccino",140],["Flat White",140],["Latte",155],["Caramel Latte",170],["Mocha Latte",170],["Vanilla Latte",160],["Hazelnut Latte",160]]},
+      {name:"Signature Drinks", items:[["Røst Signature Mocha",175],["Triple Burnt",175],["Signature Spanish Latte",165]]},
+      {name:"Plant Based", items:[["Oat Latte",175],["Brown Sugar Oat Latte",185],["Dirty Horchata",220],["Spanish Oat Latte",180]]}
+    ]},
+    {id:"tea", title:"Matcha & Hojicha", cols:[
+      {name:"Matcha", tone:"green", items:[["Matcha Latte",140],["Matcha Oat",145],["Matcha Strawberry",170],["Salty Cream Matcha",160],["Earl Grey Matcha Latte",200],["Pistachio Cream Matcha",200]]},
+      {name:"Hojicha", tone:"green", items:[["Hojicha Latte",140],["Oatjicha",145],["Brown Sugar Oatjicha",160],["Kinako Oatjicha",165]]}
+    ]},
+    {id:"noncoffee", title:"Non-coffee", cols:[
+      {name:"Refreshers & more", tone:"brown", items:[["Putot's Drink",150],["Mango Hibiscus Soda",155],["Horchata",160],["Honey Peach",150],["Pink Kombucha",160],["Passion Kombucha",170],["Dew Kombucha",165],["Milk and Choco",130],["Coastline",145],["Hibiscus Tea",120]]}
+    ]},
+    {id:"food", title:"Food", cols:[
+      {name:"Sandwich", items:[["Chicken Pesto",140],["Teriyaki Beef",145],["Spicy Kani",145],["Barbeque Chicken",130]]},
+      {name:"Rice Meals", items:[["Honey Garlic Chicken",155],["Hungarian Sausage",160],["Garlic Beef",190],["Beef Tapa",175]]},
+      {name:"Pasta", items:[["Bulgogi",160]]},
+      {name:"Snacks", flavors:["Cheese","Barbeque","Sour Cream"], items:[["Potato Fries",135]]}
+    ]},
+    {id:"sweets", title:"Sweets", cols:[
+      {name:"Donuts", items:[["Cheese Brulee & Milky",65],["Cheese Brulee & Milky, Box of 3",175],["Cheese Brulee & Milky, Box of 6",329]], labels:["Cheese Brulee & Milky","Box of 3","Box of 6"]},
+      {name:"Cheesecake", items:[["Blueberry Crumble",180],["Oreo Crumble",150],["Biscoff Crumble",165]]},
+      {name:"Cookies", items:[["Chocolate Chip Cookie",85],["Red Velvet Cookie",95],["Dark Chocolate Cookie",85]]},
+      {name:"Cinnamon Bread", items:[["Original Cinnamon",120]]},
+      {name:"Waffles", items:[["Chick'n Waffle",165],["Waffle",115]]}
+    ]}
+  ];
+
+  var cart = {};   // key -> {name, price, qty}
+  var mode = "Dine-in";
+  var $ = function(id){return document.getElementById(id)};
+  var peso = function(n){return "₱" + n.toLocaleString("en-PH")};
+
+  function el(tag, cls, text){var e=document.createElement(tag); if(cls)e.className=cls; if(text!=null)e.textContent=text; return e;}
+
+  /* build menu */
+  var main = $("menu");
+  GROUPS.forEach(function(g){
+    var group = el("section","group"); group.id = g.id;
+    group.appendChild(el("h2",null,g.title));
+    var cols = el("div","cols");
+    g.cols.forEach(function(c){
+      var sec = el("div","sec" + (c.tone? " "+c.tone : ""));
+      sec.appendChild(el("h3",null,c.name));
+      var flavor = c.flavors ? c.flavors[0] : null;
+      if(c.flavors){
+        var fl = el("div","flavors"); fl.appendChild(el("span",null,"Flavor:"));
+        c.flavors.forEach(function(f,i){
+          var b = el("button",null,f); b.type="button"; b.setAttribute("aria-pressed", i===0?"true":"false");
+          b.addEventListener("click",function(){
+            flavor = f;
+            fl.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed", x===b?"true":"false")});
+          });
+          fl.appendChild(b);
+        });
+        sec.appendChild(fl);
+      }
+      var ul = el("ul");
+      c.items.forEach(function(it,idx){
+        var shown = (c.labels && c.labels[idx]) || it[0];
+        var li = el("li","item");
+        li.appendChild(el("span","nm",shown));
+        li.appendChild(el("span","pr",peso(it[1])));
+        var add = el("button","add","+"); add.type="button"; add.setAttribute("aria-label","Add "+it[0]);
+        var st = el("div","stepper");
+        var minus = el("button",null,"−"); minus.type="button"; minus.setAttribute("aria-label","Remove one "+it[0]);
+        var count = el("span",null,"0");
+        var plus = el("button",null,"+"); plus.type="button"; plus.setAttribute("aria-label","Add one more "+it[0]);
+        st.appendChild(minus); st.appendChild(count); st.appendChild(plus);
+        li.appendChild(add); li.appendChild(st);
+        var key = null;
+        function currentKey(){ return c.flavors ? it[0]+" ("+flavor+")" : it[0]; }
+        function refresh(){
+          var q = 0;
+          if(c.flavors){ q = cart[currentKey()] ? cart[currentKey()].qty : 0; }
+          else { q = cart[it[0]] ? cart[it[0]].qty : 0; }
+          count.textContent = q; li.classList.toggle("has", q>0);
+        }
+        add.addEventListener("click",function(){ change(currentKey(), it[1], 1); });
+        plus.addEventListener("click",function(){ change(currentKey(), it[1], 1); });
+        minus.addEventListener("click",function(){ change(currentKey(), it[1], -1); });
+        li._refresh = refresh;
+        if(c.flavors){ sec.addEventListener("click",function(e){ if(e.target.closest(".flavors")) refresh(); }); }
+        ul.appendChild(li);
+      });
+      sec.appendChild(ul);
+      cols.appendChild(sec);
+    });
+    group.appendChild(cols);
+    main.appendChild(group);
+  });
+
+  function change(key, price, d){
+    var line = cart[key] || (cart[key] = {name:key, price:price, qty:0});
+    line.qty += d;
+    if(line.qty <= 0) delete cart[key];
+    renderAll();
+  }
+
+  function totals(){
+    var n=0,t=0; Object.keys(cart).forEach(function(k){n+=cart[k].qty; t+=cart[k].qty*cart[k].price;}); return {n:n,t:t};
+  }
+
+  function renderAll(){
+    document.querySelectorAll(".item").forEach(function(li){ li._refresh && li._refresh(); });
+    var tt = totals();
+    $("cbCount").textContent = tt.n + (tt.n===1?" item":" items");
+    $("cbTotal").textContent = peso(tt.t);
+    $("cartbar").classList.toggle("show", tt.n>0);
+    $("grand").textContent = peso(tt.t);
+    var ul = $("lines"); ul.textContent = "";
+    Object.keys(cart).forEach(function(k){
+      var l = cart[k], li = el("li");
+      li.appendChild(el("span",null,l.qty+" × "+l.name));
+      li.appendChild(el("span",null,peso(l.qty*l.price)));
+      ul.appendChild(li);
+    });
+    $("emptyMsg").style.display = tt.n? "none":"block";
+    if(tt.n===0) closeDrawer();
+  }
+
+  /* drawer */
+  function openDrawer(){ $("drawer").classList.add("show"); $("scrim").classList.add("show"); $("drawer").setAttribute("aria-hidden","false"); }
+  function closeDrawer(){ $("drawer").classList.remove("show"); $("scrim").classList.remove("show"); $("drawer").setAttribute("aria-hidden","true"); }
+  $("openCart").addEventListener("click", openDrawer);
+  $("closeCart").addEventListener("click", closeDrawer);
+  $("scrim").addEventListener("click", closeDrawer);
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape"){ closeDrawer(); hideIntro(); } });
+
+  document.querySelectorAll("[data-mode]").forEach(function(b){
+    b.addEventListener("click",function(){
+      mode = b.getAttribute("data-mode");
+      $("deliv").hidden = (mode !== "Delivery");
+      document.querySelectorAll("[data-mode]").forEach(function(x){ x.setAttribute("aria-pressed", x===b?"true":"false"); });
+    });
+  });
+
+  /* order text */
+  function orderText(){
+    var tt = totals(), lines = [];
+    lines.push("Hi Røst! I'd like to place an order:");
+    lines.push("");
+    Object.keys(cart).forEach(function(k){ var l=cart[k]; lines.push("• "+l.qty+" × "+l.name+" — "+peso(l.qty*l.price)); });
+    lines.push("");
+    lines.push("Total: "+peso(tt.t));
+    var nm = $("cname").value.trim();
+    lines.push("Name: "+(nm||"(not given)"));
+    lines.push("Order type: "+mode);
+    if(mode==="Delivery"){
+      lines.push("Delivery address: "+$("caddr").value.trim());
+      var ph = $("cphone").value.trim();
+      if(ph) lines.push("Contact number: "+ph);
+    }
+    var nt = $("cnotes").value.trim();
+    if(nt) lines.push("Notes: "+nt);
+    return lines.join("\n");
+  }
+
+  var toastTimer;
+  function toast(msg){
+    var t = $("toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 5000);
+  }
+
+  function copyText(text){
+    return new Promise(function(resolve){
+      function legacy(){
+        try{
+          var ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly","");
+          ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select();
+          var ok = document.execCommand("copy"); document.body.removeChild(ta); resolve(ok);
+        }catch(e){ resolve(false); }
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){resolve(true)}, legacy);
+      } else legacy();
+    });
+  }
+
+  function needItems(){
+    if(totals().n===0){ toast("Add at least one item first."); return false; }
+    if(mode==="Delivery" && !$("caddr").value.trim()){ toast("Please enter your delivery address."); $("caddr").focus(); return false; }
+    return true;
+  }
+
+  $("sendFb").addEventListener("click",function(){
+    if(!needItems()) return;
+    var text = orderText();
+    window.open(FB_ORDER_URL + "?text=" + encodeURIComponent(text), "_blank", "noopener");
+    copyText(text).then(function(ok){
+      toast(ok ? "Opening Messenger with your order. Just press Send."
+               : "Opening Messenger with your order. Just press Send.");
+    });
+  });
+
+  $("sendMail").addEventListener("click",function(){
+    if(!needItems()) return;
+    var href = "mailto:"+EMAIL+"?subject="+encodeURIComponent("Order from the website")+"&body="+encodeURIComponent(orderText());
+    window.location.href = href;
+  });
+
+  /* intro pop-up */
+  function hideIntro(){ $("intro").classList.add("gone"); }
+  $("enter").addEventListener("click", hideIntro);
+  $("enter").focus();
+
+  renderAll();
+})();
+</script>
+</body>
+</html>
